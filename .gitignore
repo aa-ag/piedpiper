@@ -1,6 +1,9 @@
 # Settings
 settings
 settings.py
+
+.DS_Store
+
 # VSS
 .vscode
 .vscode/*

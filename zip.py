@@ -1,7 +1,8 @@
 ###--- IMPORTS --###
 from zipfile import ZipFile
 import settings
-
+import os
+from os.path import basename
 
 ###--- GLOBAL VARIABLES ---###
 path = settings.PATH
@@ -16,16 +17,17 @@ def zip_all_files_in_path():
     global path
 
     # create zip file
-    zip_object = ZipFile('zip_file.zip', 'w')
+    with ZipFile('zip_file.zip', 'w') as zf:
+        # Iterate over all the files in directory
+        for folders, subfolders, filenames in os.walk(path):
+            for filename in filenames:
+                # create complete filepath of file in directory
+                file_path = os.path.join(folders, filename)
+                # add file to zip
+                zf.write(file_path, basename(file_path))
 
-    # add each file in path to zip file
-    zip_object.write('.gitignore')
-    zip_object.write('README.md')
-    zip_object.write('settings.py')
-    zip_object.write('zip.py')
-
-    # close zip File
-    zip_object.close()
+    # close zip file
+    zf.close()
 
 
 ###--- DRIVER CODE ---##
