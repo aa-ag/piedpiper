@@ -16,17 +16,15 @@ def zip_all_files_in_path():
     '''
     global path
 
-    # create zip file
     with ZipFile('zip_file.zip', 'w') as zf:
-        # Iterate over all the files in directory
+
         for folders, subfolders, filenames in os.walk(path):
             for filename in filenames:
-                # create complete filepath of file in directory
+
                 file_path = os.path.join(folders, filename)
-                # add file to zip
+
                 zf.write(file_path, basename(file_path))
 
-    # close zip file
     zf.close()
 
 
